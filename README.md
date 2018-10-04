@@ -1,6 +1,6 @@
 # Google Cloud Storage for Magento 1.x
 
-Use Google Cloud Storage as the backend for storing media assets in Magento 1.x.
+Use [Google Cloud Storage](https://cloud.google.com/storage/) as the backend for storing media assets in Magento 1.x.
 
 ## Documentation
 
