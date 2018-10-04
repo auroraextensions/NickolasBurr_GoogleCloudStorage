@@ -2,6 +2,11 @@
 
 Use [Google Cloud Storage](https://cloud.google.com/storage/) as the backend for storing media assets in Magento 1.x.
 
+## Installation
+
+Before installing this extension, please make sure you have installed [Google Cloud PHP Autoloader](https://github.com/nickolasburr/googlecloudphpautoloader).
+This extension depends on the autoloader for loading the necessary Google Cloud PHP libraries.
+
 ## Documentation
 
 See [here](https://docs.nickolasburr.com/magento/extensions/1.x/magegcs/latest/) for documentation.
