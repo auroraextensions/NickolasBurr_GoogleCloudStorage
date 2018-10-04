@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * system.xml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.nickolasburr.com/magento/extensions/1.x/magegcs/LICENSE.txt
+ *
+ * @package        NickolasBurr_GoogleCloudStorage
+ * @copyright      Copyright (C) 2018 Nickolas Burr <nickolasburr@gmail.com>
+ * @license        MIT License
+ */
+-->
+<config>
+    <tabs>
+        <nickolasburr module="magegcs" translate="label">
+            <label>Nickolas Burr Extensions</label>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>0</show_in_store>
+        </nickolasburr>
+    </tabs>
+
+    <sections>
+        <magegcs module="magegcs" translate="label">
+            <class>separator-top</class>
+            <label>Google Cloud Storage</label>
+            <tab>nickolasburr</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>750</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <general module="magegcs" translate="label"><!-- General Settings -->
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>1</expanded>
+                    <comment>
+                        <![CDATA[
+                        <style>
+                            .columns .form-list td.version {
+                                padding-left: 0px !important;
+                            }
+                        </style>
+                        <table cellspacing="0" class="form-list">
+                            <tbody>
+                                <tr>
+                                    <td class="label version">
+                                        <label>Version</label>
+                                    </td>
+                                    <td class="value">1.0.0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        ]]>
+                    </comment>
+                    <fields>
+                        <enable_module translate="label"><!-- Enable Module -->
+                            <label>Enable Google Cloud Storage</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable_module>
+                        <gcp_project translate="label"><!-- GCP Project Name -->
+                            <label>Google Cloud Platform Project</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <validate>required-entry</validate>
+                            <comment>The name of the GCP project.</comment>
+                            <depends>
+                                <enable_module>1</enable_module>
+                            </depends>
+                        </gcp_project>
+                        <key_file_path translate="label"><!-- JSON key file path -->
+                            <label>JSON Key File Path</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <validate>required-entry</validate>
+                            <comment>The JSON key file used for authentication.</comment>
+                            <depends>
+                                <enable_module>1</enable_module>
+                            </depends>
+                        </key_file_path>
+                    </fields>
+                </general>
+                <bucket module="magegcs" translate="label"><!-- Bucket Settings -->
+                    <label>Bucket Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <name translate="label">
+                            <label>Cloud Storage Bucket Name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <validate>required-entry</validate>
+                        </name>
+                        <region translate="label">
+                            <label>Cloud Storage Bucket Region</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>magegcs/adminhtml_system_config_source_bucket_region</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </region>
+                    </fields>
+                </bucket>
+            </groups>
+        </magegcs>
+    </sections>
+</config>

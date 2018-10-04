@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * config.xml
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the MIT License, which
+ * is bundled with this package in the file LICENSE.txt.
+ *
+ * It is also available on the Internet at the following URL:
+ * https://docs.nickolasburr.com/magento/extensions/1.x/magegcs/LICENSE.txt
+ *
+ * @package        NickolasBurr_GoogleCloudStorage
+ * @copyright      Copyright (C) 2018 Nickolas Burr <nickolasburr@gmail.com>
+ * @license        MIT License
+ */
+-->
+<config>
+    <modules>
+        <NickolasBurr_GoogleCloudStorage>
+            <version>1.0.0</version>
+        </NickolasBurr_GoogleCloudStorage>
+    </modules>
+
+    <global>
+        <blocks>
+            <magegcs>
+                <class>NickolasBurr_GoogleCloudStorage_Block</class>
+            </magegcs>
+        </blocks>
+
+        <helpers>
+            <magegcs>
+                <class>NickolasBurr_GoogleCloudStorage_Helper</class>
+            </magegcs>
+
+            <core>
+                <rewrite>
+                    <file_storage>NickolasBurr_GoogleCloudStorage_Helper_Core_File_Storage</file_storage>
+                    <file_storage_database>NickolasBurr_GoogleCloudStorage_Helper_Core_File_Storage_Database</file_storage_database>
+                </rewrite>
+            </core>
+        </helpers>
+
+        <models>
+            <magegcs>
+                <class>NickolasBurr_GoogleCloudStorage_Model</class>
+                <resourceModel>magegcs_resource</resourceModel>
+            </magegcs>
+
+            <magegcs_resource>
+                <class>NickolasBurr_GoogleCloudStorage_Model_Resource</class>
+            </magegcs_resource>
+
+            <adminhtml>
+                <rewrite>
+                    <system_config_source_storage_media_storage>NickolasBurr_GoogleCloudStorage_Model_Adminhtml_System_Config_Source_Storage_Media_Storage</system_config_source_storage_media_storage>
+                </rewrite>
+            </adminhtml>
+
+            <captcha>
+                <rewrite>
+                    <zend>NickolasBurr_GoogleCloudStorage_Model_Captcha_Zend</zend>
+                </rewrite>
+            </captcha>
+
+            <cms>
+                <rewrite>
+                    <wysiwyg_images_storage>NickolasBurr_GoogleCloudStorage_Model_Cms_Wysiwyg_Images_Storage</wysiwyg_images_storage>
+                </rewrite>
+            </cms>
+
+            <core>
+                <rewrite>
+                    <file_storage>NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage</file_storage>
+                    <file_storage_database>NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Database</file_storage_database>
+                    <file_storage_directory_database>NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Directory_Database</file_storage_directory_database>
+                </rewrite>
+            </core>
+
+            <dataflow>
+                <rewrite>
+                    <profile>NickolasBurr_GoogleCloudStorage_Model_Dataflow_Profile</profile>
+                </rewrite>
+            </dataflow>
+        </models>
+    </global>
+
+    <default>
+        <magegcs>
+            <general>
+                <enable_module>0</enable_module>
+                <gcp_project></gcp_project>
+                <key_file_path></key_file_path>
+            </general>
+            <bucket>
+                <name></name>
+                <region>us-central1</region>
+            </bucket>
+        </magegcs>
+    </default>
+</config>
