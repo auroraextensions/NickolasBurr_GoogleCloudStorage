@@ -113,7 +113,7 @@
                     <expanded>0</expanded>
                     <fields>
                         <name translate="label">
-                            <label>Cloud Storage Bucket Name</label>
+                            <label>Bucket Name</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>10</sort_order>
                             <show_in_default>1</show_in_default>
@@ -121,15 +121,33 @@
                             <show_in_store>0</show_in_store>
                             <validate>required-entry</validate>
                         </name>
-                        <region translate="label">
-                            <label>Cloud Storage Bucket Region</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>magegcs/adminhtml_system_config_source_bucket_region</source_model>
+                        <prefix translate="label">
+                            <label>Bucket Prefix</label>
+                            <frontend_type>text</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>0</show_in_store>
-                        </region>
+                            <comment>
+                                <![CDATA[
+                                    Synchronize to bucket subdirectory. Must be well-formed, Unix-like pathname.
+                                ]]>
+                            </comment>
+                        </prefix>
+                        <acl translate="label">
+                            <label>Bucket ACL Policy</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>magegcs/adminhtml_system_config_source_bucket_acl</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment>
+                                <![CDATA[
+                                    The predefined ACL policy for bucket file objects. See <a href="https://cloud.google.com/storage/docs/access-control/lists#predefined-acl" target="_blank">here</a> for documentation.
+                                ]]>
+                            </comment>
+                        </acl>
                     </fields>
                 </bucket>
             </groups>

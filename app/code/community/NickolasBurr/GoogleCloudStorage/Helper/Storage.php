@@ -18,6 +18,37 @@
 class NickolasBurr_GoogleCloudStorage_Helper_Storage extends NickolasBurr_GoogleCloudStorage_Helper_Data
 {
     /**
+     * @property array $acls
+     * @static
+     */
+    protected static $_acls = array(
+        array(
+            'label' => 'Private',
+            'value' => 'private',
+        ),
+        array(
+            'label' => 'Bucket Owner Read',
+            'value' => 'bucketOwnerRead',
+        ),
+        array(
+            'label' => 'Bucket Owner Full Control',
+            'value' => 'bucketOwnerFullControl',
+        ),
+        array(
+            'label' => 'Project Private',
+            'value' => 'projectPrivate',
+        ),
+        array(
+            'label' => 'Authenticated Read',
+            'value' => 'authenticatedRead',
+        ),
+        array(
+            'label' => 'Public Read',
+            'value' => 'publicRead',
+        ),
+    );
+
+    /**
      * @property array $_regions
      * @static
      */
@@ -120,6 +151,16 @@ class NickolasBurr_GoogleCloudStorage_Helper_Storage extends NickolasBurr_Google
     }
 
     /**
+     * Get array of predefined ACLs.
+     *
+     * @return array
+     */
+    public function getAcls()
+    {
+        return self::$_acls;
+    }
+
+    /**
      * Get array of GCS regions.
      *
      * @return array
@@ -150,27 +191,172 @@ class NickolasBurr_GoogleCloudStorage_Helper_Storage extends NickolasBurr_Google
     }
 
     /**
+     * Upload file to GCS bucket.
+     *
+     * @param resource $handle
+     * @param array $options
+     * @param bool $includeBucketPrefix
+     * @return Google\Cloud\Storage\StorageObject|null
+     */
+    public function uploadToBucket($handle, array $options = array(), $includeBucketPrefix = true)
+    {
+        /** @var NickolasBurr_GoogleCloudStorage_Helper_Core_File_Storage_Database $helper */
+        $helper = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_CORE_FILE_STORAGE_DATABASE);
+
+        if ($includeBucketPrefix) {
+            /** @var string $bucketPrefix */
+            $bucketPrefix = $this->getBucketPrefixAsUnixPath();
+
+            if (isset($options['name'])) {
+                $options['name'] = $bucketPrefix . '/' . \ltrim($options['name'], DS);
+            } else {
+                /** @var array $metadata */
+                $metadata = \stream_get_meta_data($handle);
+
+                $mediaBaseDir = \rtrim($helper->getMediaBaseDir(), DS);
+                $absolutePath = \realpath($metadata['uri']);
+                $relativePath = \ltrim(\str_replace($mediaBaseDir, '', $absolutePath), DS);
+
+                /* Set bucket-prefixed, absolute pathname on $options['name']. */
+                $options['name'] = $bucketPrefix . '/' . \ltrim($mediaBaseDir, DS) . '/' . $relativePath;
+            }
+        }
+
+        /** @var Google\Cloud\Storage\Bucket $bucket */
+        $bucket = $this->getBucket($this->getBucketName());
+
+        return $bucket->upload($handle, $options);
+    }
+
+    /**
      * Get object from bucket storage.
      *
-     * @param string $name
+     * @param string $filePath
+     * @param bool $includeBucketPrefix
      * @return Google\Cloud\Storage\StorageObject
      */
-    public function getObject($name)
+    public function getObject($filePath, $includeBucketPrefix = true)
     {
         /** @var Google\Cloud\Storage\Bucket $bucket */
-        $bucket = $client->bucket($this->getBucketName());
+        $bucket = $this->getBucket($this->getBucketName());
 
-        return $bucket->object($name);
+        if ($includeBucketPrefix) {
+            $filePath = $this->getBucketPrefixAsUnixPath() . '/' . \ltrim($filePath, DS);
+        }
+
+        return $bucket->object($filePath);
     }
 
     /**
      * Get all objects in bucket.
      *
      * @param array $options
+     * @param bool $includeBucketPrefix
      * @return ObjectIterator<StorageObject>
      */
-    public function getObjects(array $options = array())
+    public function getObjects(array $options = array(), $includeBucketPrefix = true)
     {
-        return $this->getBucket()->objects($options);
+        /** @var Google\Cloud\Storage\Bucket $bucket */
+        $bucket = $this->getBucket($this->getBucketName());
+
+        if ($includeBucketPrefix) {
+            if (isset($options['prefix'])) {
+                $options['prefix'] = $this->getBucketPrefixAsUnixPath() . '/' . \ltrim($options['prefix'], DS);
+            } else {
+                $options['prefix'] = $this->getBucketPrefixAsUnixPath();
+            }
+        }
+
+        return $bucket->objects($options);
+    }
+
+    /**
+     * Check if object exists in GCS bucket.
+     *
+     * @param string $filePath
+     * @return bool
+     */
+    public function objectExists($filePath)
+    {
+        /** @var Google\Cloud\Storage\StorageObject|null $object */
+        $object = $this->getObject($filePath);
+
+        return ($object && $object->exists());
+    }
+
+    /**
+     * Copy file object from $sourcePath to $targetPath.
+     *
+     * @param string $sourcePath
+     * @param string $targetPath
+     * @return Google\Cloud\Storage\StorageObject|bool
+     */
+    public function copyObject($sourcePath, $targetPath)
+    {
+        if (!$this->objectExists($sourcePath)) {
+            return false;
+        }
+
+        if ($this->hasBucketPrefix()) {
+            $targetPath = $this->getBucketPrefixAsUnixPath() . '/' . \ltrim($targetPath, DS);
+        }
+
+        /** @var Google\Cloud\Storage\StorageObject $object */
+        $object = $this->getObject($sourcePath);
+
+        if ($object->exists()) {
+            return $object->copy($targetPath);
+        }
+
+        return false;
+    }
+
+    /**
+     * Rename file object from $sourcePath to $targetPath.
+     *
+     * @param string $sourcePath
+     * @param string $targetPath
+     * @return Google\Cloud\Storage\StorageObject|bool
+     */
+    public function renameObject($sourcePath, $targetPath)
+    {
+        if (!$this->objectExists($sourcePath)) {
+            return false;
+        }
+
+        if ($this->hasBucketPrefix()) {
+            $targetPath = $this->getBucketPrefixAsUnixPath() . '/' . \ltrim($targetPath, DS);
+        }
+
+        /** @var Google\Cloud\Storage\StorageObject $object */
+        $object = $this->getObject($sourcePath);
+
+        if ($object->exists()) {
+            return $object->rename($targetPath);
+        }
+
+        return false;
+    }
+
+    /**
+     * Delete file object from GCS bucket.
+     *
+     * @param string $filePath
+     * @return bool
+     */
+    public function deleteObject($filePath)
+    {
+        if (!$this->objectExists($filePath)) {
+            return false;
+        }
+
+        /** @var Google\Cloud\Storage\StorageObject $object */
+        $object = $this->getObject($filePath);
+
+        if ($object->exists()) {
+            $object->delete();
+        }
+
+        return !$this->objectExists($filePath);
     }
 }

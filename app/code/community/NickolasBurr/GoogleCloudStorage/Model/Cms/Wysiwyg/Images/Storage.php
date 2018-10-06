@@ -52,12 +52,12 @@ class NickolasBurr_GoogleCloudStorage_Model_Cms_Wysiwyg_Images_Storage extends M
         $helper = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_CORE_FILE_STORAGE_DATABASE);
 
         if ($helper->checkBucketUsage()) {
+            $storage = Mage::getModel('core/file_storage_file');
             $backend = $helper->getStorageDatabaseModel();
             $files = $backend->getDirectoryFiles($path);
-            $fileStore = Mage::getModel('core/file_storage_file');
 
             foreach ($files as $file) {
-                $fileStore->saveFile($file);
+                $storage->saveFile($file);
             }
         }
 

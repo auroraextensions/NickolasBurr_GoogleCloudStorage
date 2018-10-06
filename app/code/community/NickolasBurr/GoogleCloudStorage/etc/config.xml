@@ -96,7 +96,8 @@
             </general>
             <bucket>
                 <name></name>
-                <region>us-central1</region>
+                <prefix></prefix>
+                <acl>publicRead</acl>
             </bucket>
         </magegcs>
     </default>
