@@ -29,8 +29,11 @@ class NickolasBurr_GoogleCloudStorage_Helper_Data extends Mage_Core_Helper_Abstr
     /** @constant string XML_PATH_FIELD_BUCKET_NAME */
     const XML_PATH_FIELD_BUCKET_NAME = 'magegcs/bucket/name';
 
-    /** @constant string XML_PATH_FIELD_BUCKET_REGION */
-    const XML_PATH_FIELD_BUCKET_REGION = 'magegcs/bucket/region';
+    /** @constant string XML_PATH_FIELD_BUCKET_PREFIX */
+    const XML_PATH_FIELD_BUCKET_PREFIX = 'magegcs/bucket/prefix';
+
+    /** @constant string XML_PATH_FIELD_BUCKET_ACL */
+    const XML_PATH_FIELD_BUCKET_ACL = 'magegcs/bucket/acl';
 
     /**
      * Check if the module is enabled from admin panel.
@@ -87,12 +90,60 @@ class NickolasBurr_GoogleCloudStorage_Helper_Data extends Mage_Core_Helper_Abstr
     }
 
     /**
-     * Get GCS bucket region.
+     * Get GCS bucket prefix.
      *
      * @param string $field
      * @return string
      */
-    public function getBucketRegion($field = self::XML_PATH_FIELD_BUCKET_REGION)
+    public function getBucketPrefix($field = self::XML_PATH_FIELD_BUCKET_PREFIX)
+    {
+        return Mage::getStoreConfig($field, Mage::app()->getStore());
+    }
+
+    /**
+     * Check if GCS bucket prefix is set.
+     *
+     * @return bool
+     */
+    public function hasBucketPrefix()
+    {
+        /** @var string $prefix */
+        $prefix = $this->getBucketPrefix();
+
+        return !empty($prefix);
+    }
+
+    /**
+     * Get GCS bucket prefix as well-formed, Unix-like path.
+     *
+     * @param bool $trimEnd
+     * @return string
+     */
+    public function getBucketPrefixAsUnixPath($trimEnd = true)
+    {
+        /** @var string $prefix */
+        $prefix = \preg_replace('#//+#', '/', $this->getBucketPrefix());
+
+        /* Remove leading slash, if needed. */
+        if (\strlen($prefix) && $prefix[0] === '/') {
+            $prefix = \ltrim($prefix, '/');
+        }
+
+        /* Remove trailing slash, if needed. */
+        if ($trimEnd) {
+            $prefix = \rtrim($prefix, '/');
+        }
+
+        return $prefix;
+    }
+
+    /**
+     * Get GCS bucket ACL policy.
+     *
+     * @param string $field
+     * @return string
+     */
+    public function getBucketAcl($field = self::XML_PATH_FIELD_BUCKET_ACL)
     {
         return Mage::getStoreConfig($field, Mage::app()->getStore());
     }

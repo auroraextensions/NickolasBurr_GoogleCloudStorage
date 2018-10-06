@@ -18,7 +18,7 @@
 class NickolasBurr_GoogleCloudStorage_Helper_Dict extends NickolasBurr_GoogleCloudStorage_Helper_Data
 {
     /** @constant int STORAGE_MEDIA_GCS */
-    const STORAGE_MEDIA_GCS = 4;
+    const STORAGE_MEDIA_GCS = 2;
 
     /** @constant string XML_PATH_HELPER_STORAGE */
     const XML_PATH_HELPER_STORAGE = 'magegcs/storage';
