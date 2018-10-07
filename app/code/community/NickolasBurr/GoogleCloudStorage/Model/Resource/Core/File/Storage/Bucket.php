@@ -34,14 +34,10 @@ class NickolasBurr_GoogleCloudStorage_Model_Resource_Core_File_Storage_Bucket
         /* Append slash back to $dirname. */
         $dirname .= '/';
 
-        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $helper */
-        $helper = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
+        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
+        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
 
-        /** @var ObjectIterator<StorageObject> $objects */
-        $objects = $helper->getObjects(array('prefix' => $dirname));
-
-        foreach ($objects as $object) {
-            $object->delete();
-        }
+        /* Delete all objects with $dirname prefix. */
+        $storage->deleteAllObjects(array('prefix' => $dirname));
     }
 }

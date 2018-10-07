@@ -359,4 +359,24 @@ class NickolasBurr_GoogleCloudStorage_Helper_Storage extends NickolasBurr_Google
 
         return !$this->objectExists($filePath);
     }
+
+    /**
+     * Delete all applicable objects from bucket.
+     *
+     * @param array $options
+     * @return NickolasBurr_GoogleCloudStorage_Helper_Storage
+     */
+    public function deleteAllObjects(array $options = array())
+    {
+        /** @var ObjectIterator<StorageObject> $objects */
+        $objects = $this->getObjects($options);
+
+        foreach ($objects as $object) {
+            if ($object->exists()) {
+                $object->delete();
+            }
+        }
+
+        return $this;
+    }
 }

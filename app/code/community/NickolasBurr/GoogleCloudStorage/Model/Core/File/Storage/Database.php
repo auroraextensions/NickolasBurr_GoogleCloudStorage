@@ -27,9 +27,9 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Database extends M
     public function loadByFilename($filePath)
     {
         /* Current backend storage code. */
-        $storage = (int) Mage::helper('core/file_storage')->getCurrentStorageCode();
+        $storageCode = (int) Mage::helper('core/file_storage')->getCurrentStorageCode();
 
-        if ($storage !== NickolasBurr_GoogleCloudStorage_Helper_Dict::STORAGE_MEDIA_GCS) {
+        if ($storageCode !== NickolasBurr_GoogleCloudStorage_Helper_Dict::STORAGE_MEDIA_GCS) {
             return parent::loadByFilename($filePath);
         }
 
@@ -72,9 +72,9 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Database extends M
     public function getId()
     {
         /* Current backend storage code. */
-        $storage = (int) Mage::helper('core/file_storage')->getCurrentStorageCode();
+        $storageCode = (int) Mage::helper('core/file_storage')->getCurrentStorageCode();
 
-        if ($storage !== NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_MODEL_CORE_FILE_STORAGE_BUCKET) {
+        if ($storageCode !== NickolasBurr_GoogleCloudStorage_Helper_Dict::STORAGE_MEDIA_GCS) {
             return parent::getId();
         }
 
