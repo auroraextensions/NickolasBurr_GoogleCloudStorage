@@ -65,20 +65,23 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
     }
 
     /**
-     * Load file object by pathname.
+     * Load file object by filename.
      *
-     * @param string $filePath
+     * @param string $filename
      * @return NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket
      */
-    public function loadByFilename($filePath)
+    public function loadByFilename($filename)
     {
         /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
         $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
 
-        if ($storage->objectExists($filePath)) {
-            $this->setData('id', $filePath);
-            $this->setData('filename', $filePath);
-            $this->setData('content', $storage->getObject($filePath)->downloadAsString());
+        /** @var string $relativePath */
+        $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($filename);
+
+        if ($storage->objectExists($relativePath)) {
+            $this->setData('id', $filename);
+            $this->setData('filename', $filename);
+            $this->setData('content', $storage->getObject($relativePath)->downloadAsString());
         } else {
             $this->unsetData();
         }
@@ -198,17 +201,20 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
             /** @var string $content */
             $content = $file['content'];
 
+            /** @var string $relativePath */
+            $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($filePath);
+
             try {
                 /* Upload file object to GCS bucket. */
                 $storage->uploadToBucket(
                     $content,
                     array(
-                        'name'          => $filePath,
+                        'name'          => $relativePath,
                         'predefinedAcl' => $storage->getBucketAcl(),
                     )
                 );
 
-                if (!$storage->objectExists($filePath)) {
+                if (!$storage->objectExists($relativePath)) {
                     Mage::throwException(Mage::helper('core')->__('Unable to save file: %s', $filePath));
                 }
             } catch (Mage_Core_Exception $e) {
@@ -257,7 +263,7 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
             /** @var string $relativePath */
             $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($filePath);
 
-            /* Upload file object to GCS bucket. */
+            /* Upload file object to bucket. */
             $storage->uploadToBucket(
                 $handle,
                 array(
@@ -285,10 +291,10 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
      */
     public function fileExists($filePath)
     {
-        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
-        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
-
-        return $storage->objectExists($filePath);
+        return $this->_getResource()->fileExists(
+            \basename($filePath),
+            \dirname($filePath)
+        );
     }
 
     /**
@@ -300,12 +306,13 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
      */
     public function copyFile($sourcePath, $targetPath)
     {
-        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
-        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
-
-        if ($storage->objectExists($sourcePath)) {
-            $storage->copyObject($sourcePath, $targetPath);
-        }
+        /* Copy file object from source to target path within bucket. */
+        $this->_getResource()->copyFile(
+            \basename($sourcePath),
+            \dirname($sourcePath),
+            \basename($targetPath),
+            \dirname($targetPath)
+        );
 
         return $this;
     }
@@ -319,12 +326,13 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
      */
     public function renameFile($sourcePath, $targetPath)
     {
-        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
-        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
-
-        if ($storage->objectExists($sourcePath)) {
-            $storage->renameObject($sourcePath, $targetPath);
-        }
+        /* Rename file object within bucket. */
+        $this->_getResource()->renameFile(
+            \basename($sourcePath),
+            \dirname($sourcePath),
+            \basename($targetPath),
+            \dirname($targetPath)
+        );
 
         return $this;
     }
@@ -337,12 +345,11 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
      */
     public function deleteFile($filePath)
     {
-        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
-        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
-
-        if ($storage->objectExists($filePath)) {
-            $storage->deleteObject($filePath);
-        }
+        /* Rename file object within bucket. */
+        $this->_getResource()->deleteFile(
+            \basename($filePath),
+            \dirname($filePath)
+        );
 
         return $this;
     }

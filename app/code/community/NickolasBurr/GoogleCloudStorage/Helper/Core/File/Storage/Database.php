@@ -34,7 +34,7 @@ class NickolasBurr_GoogleCloudStorage_Helper_Core_File_Storage_Database extends 
     }
 
     /**
-     * Check if we're using GCS bucket for image storage.
+     * Check if we're using GCS bucket for storage.
      *
      * @return bool
      */
@@ -84,18 +84,5 @@ class NickolasBurr_GoogleCloudStorage_Helper_Core_File_Storage_Database extends 
         }
 
         return false;
-    }
-
-    /**
-     * Save uploaded file to database with existence tests.
-     *
-     * @param array $result
-     * @return string
-     * @see Thai_S3_Helper_Core_File_Storage_Database::saveUploadedFile
-     * @see Mage_Core_Helper_File_Storage_Database::saveUploadedFile
-     */
-    public function saveUploadedFile($result = array())
-    {
-        return \ltrim(parent::saveUploadedFile($result), '/');
     }
 }
