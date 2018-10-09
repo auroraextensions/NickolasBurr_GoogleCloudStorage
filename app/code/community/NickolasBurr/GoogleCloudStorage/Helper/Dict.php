@@ -23,9 +23,12 @@ class NickolasBurr_GoogleCloudStorage_Helper_Dict extends NickolasBurr_GoogleClo
     /** @constant string XML_PATH_HELPER_STORAGE */
     const XML_PATH_HELPER_STORAGE = 'magegcs/storage';
 
+    /** @constant string XML_PATH_MODEL_CORE_FILE_STORAGE_BUCKET */
+    const XML_PATH_MODEL_CORE_FILE_STORAGE_BUCKET = 'magegcs/core_file_storage_bucket';
+
     /** @constant string XML_PATH_HELPER_CORE_FILE_STORAGE_DATABASE */
     const XML_PATH_HELPER_CORE_FILE_STORAGE_DATABASE = 'magegcs/core_file_storage_database';
 
-    /** @constant string XML_PATH_MODEL_CORE_FILE_STORAGE_BUCKET */
-    const XML_PATH_MODEL_CORE_FILE_STORAGE_BUCKET = 'magegcs/core_file_storage_bucket';
+    /** @constant string XML_PATH_MODEL_CORE_FILE_STORAGE_FILE */
+    const XML_PATH_MODEL_CORE_FILE_STORAGE_FILE = 'magegcs/core_file_storage_file';
 }

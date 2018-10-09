@@ -76,7 +76,6 @@
                     <file_storage>NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage</file_storage>
                     <file_storage_database>NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Database</file_storage_database>
                     <file_storage_directory_database>NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Directory_Database</file_storage_directory_database>
-                    <file_storage_file>NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_File</file_storage_file>
                 </rewrite>
             </core>
 

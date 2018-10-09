@@ -55,10 +55,11 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Database extends M
      */
     public function getDirectoryFiles($directory)
     {
-        $directory = Mage::helper('core/file_storage_database')->getMediaRelativePath($directory);
+        /** @var string $relativePath */
+        $relativePath = Mage::helper('core/file_storage_database')->getMediaRelativePath($directory);
 
         try {
-            return $this->_getResource()->getDirectoryFiles($directory);
+            return $this->_getResource()->getDirectoryFiles($relativePath);
         } catch (\Exception $e) {
             return array();
         }
@@ -79,5 +80,23 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Database extends M
         }
 
         return $this->getData('id');
+    }
+
+    /**
+     * Delete file from bucket.
+     *
+     * @param string $filePath
+     * @return NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Database
+     */
+    public function deleteFile($filePath)
+    {
+        /** @var NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket $backend */
+        $backend = Mage::getModel(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_MODEL_CORE_FILE_STORAGE_BUCKET);
+
+        /* Delete file object from bucket. */
+        $backend->deleteFile($filePath);
+        parent::deleteFile($filePath);
+
+        return $this;
     }
 }
