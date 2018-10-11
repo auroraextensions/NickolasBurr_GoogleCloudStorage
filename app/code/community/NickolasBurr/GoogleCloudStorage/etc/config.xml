@@ -41,6 +41,12 @@
                     <file_storage_database>NickolasBurr_GoogleCloudStorage_Helper_Core_File_Storage_Database</file_storage_database>
                 </rewrite>
             </core>
+
+            <downloadable>
+                <rewrite>
+                    <file>NickolasBurr_GoogleCloudStorage_Helper_Downloadable_File</file>
+                </rewrite>
+            </downloadable>
         </helpers>
 
         <models>
@@ -99,6 +105,12 @@
                 <prefix></prefix>
                 <acl>publicRead</acl>
             </bucket>
+            <downloadable>
+                <upload_link_files>1</upload_link_files>
+                <link_files_acl>authenticatedRead</link_files_acl>
+                <upload_sample_files>1</upload_sample_files>
+                <sample_files_acl>publicRead</sample_files_acl>
+            </downloadable>
         </magegcs>
     </default>
 </config>

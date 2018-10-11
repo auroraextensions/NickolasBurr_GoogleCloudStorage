@@ -35,6 +35,18 @@ class NickolasBurr_GoogleCloudStorage_Helper_Data extends Mage_Core_Helper_Abstr
     /** @constant string XML_PATH_FIELD_BUCKET_ACL */
     const XML_PATH_FIELD_BUCKET_ACL = 'magegcs/bucket/acl';
 
+    /** @constant string XML_PATH_FIELD_DOWNLOADABLE_UPLOAD_LINK_FILES */
+    const XML_PATH_FIELD_DOWNLOADABLE_UPLOAD_LINK_FILES = 'magegcs/downloadable/upload_link_files';
+
+    /** @constant string XML_PATH_FIELD_DOWNLOADABLE_LINK_FILES_ACL */
+    const XML_PATH_FIELD_DOWNLOADABLE_LINK_FILES_ACL = 'magegcs/downloadable/link_files_acl';
+
+    /** @constant string XML_PATH_FIELD_DOWNLOADABLE_UPLOAD_SAMPLE_FILES */
+    const XML_PATH_FIELD_DOWNLOADABLE_UPLOAD_SAMPLE_FILES = 'magegcs/downloadable/upload_sample_files';
+
+    /** @constant string XML_PATH_FIELD_DOWNLOADABLE_SAMPLE_FILES_ACL */
+    const XML_PATH_FIELD_DOWNLOADABLE_SAMPLE_FILES_ACL = 'magegcs/downloadable/sample_files_acl';
+
     /**
      * Check if the module is enabled from admin panel.
      *
@@ -144,6 +156,50 @@ class NickolasBurr_GoogleCloudStorage_Helper_Data extends Mage_Core_Helper_Abstr
      * @return string
      */
     public function getBucketAcl($field = self::XML_PATH_FIELD_BUCKET_ACL)
+    {
+        return Mage::getStoreConfig($field, Mage::app()->getStore());
+    }
+
+    /**
+     * Should we upload downloadable product link files to the bucket?
+     *
+     * @param string $field
+     * @return bool
+     */
+    public function shouldUploadLinkFiles($field = self::XML_PATH_FIELD_DOWNLOADABLE_UPLOAD_LINK_FILES)
+    {
+        return Mage::getStoreConfigFlag($field, Mage::app()->getStore());
+    }
+
+    /**
+     * Get predefined ACL for downloadable product link files.
+     *
+     * @param string $field
+     * @return string
+     */
+    public function getLinkFilesAcl($field = self::XML_PATH_FIELD_DOWNLOADABLE_LINK_FILES_ACL)
+    {
+        return Mage::getStoreConfig($field, Mage::app()->getStore());
+    }
+
+    /**
+     * Should we upload downloadable product sample files to the bucket?
+     *
+     * @param string $field
+     * @return bool
+     */
+    public function shouldUploadSampleFiles($field = self::XML_PATH_FIELD_DOWNLOADABLE_UPLOAD_SAMPLE_FILES)
+    {
+        return Mage::getStoreConfigFlag($field, Mage::app()->getStore());
+    }
+
+    /**
+     * Get predefined ACL for downloadable product sample files.
+     *
+     * @param string $field
+     * @return string
+     */
+    public function getSampleFilesAcl($field = self::XML_PATH_FIELD_DOWNLOADABLE_SAMPLE_FILES_ACL)
     {
         return Mage::getStoreConfig($field, Mage::app()->getStore());
     }
