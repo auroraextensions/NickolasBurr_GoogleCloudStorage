@@ -1,0 +1,17 @@
+{
+  "name": "nickolasburr/magegcs",
+  "description": "Use Google Cloud Storage as the file storage backend for Magento 1.x.",
+  "type": "magento-module",
+  "license": "MIT",
+  "keywords": [
+    "google-cloud",
+    "google-cloud-storage",
+    "magento"
+  ],
+  "authors": [
+    {
+      "name": "Nickolas Burr",
+      "email": "nickolasburr@gmail.com"
+    }
+  ]
+}
