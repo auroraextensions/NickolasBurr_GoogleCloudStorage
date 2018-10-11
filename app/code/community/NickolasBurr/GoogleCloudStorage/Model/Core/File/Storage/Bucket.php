@@ -291,10 +291,10 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
      */
     public function fileExists($filePath)
     {
-        return $this->_getResource()->fileExists(
-            \basename($filePath),
-            \dirname($filePath)
-        );
+        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
+        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
+
+        return $storage->objectExists($filePath);
     }
 
     /**
@@ -306,13 +306,12 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
      */
     public function copyFile($sourcePath, $targetPath)
     {
-        /* Copy file object from source to target path within bucket. */
-        $this->_getResource()->copyFile(
-            \basename($sourcePath),
-            \dirname($sourcePath),
-            \basename($targetPath),
-            \dirname($targetPath)
-        );
+        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
+        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
+
+        if ($storage->objectExists($sourcePath)) {
+            $storage->copyObject($sourcePath, $targetPath);
+        }
 
         return $this;
     }
@@ -326,13 +325,12 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
      */
     public function renameFile($sourcePath, $targetPath)
     {
-        /* Rename file object within bucket. */
-        $this->_getResource()->renameFile(
-            \basename($sourcePath),
-            \dirname($sourcePath),
-            \basename($targetPath),
-            \dirname($targetPath)
-        );
+        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
+        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
+
+        if ($storage->objectExists($sourcePath)) {
+            $storage->renameObject($sourcePath, $targetPath);
+        }
 
         return $this;
     }
@@ -345,11 +343,12 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket extends Mag
      */
     public function deleteFile($filePath)
     {
-        /* Rename file object within bucket. */
-        $this->_getResource()->deleteFile(
-            \basename($filePath),
-            \dirname($filePath)
-        );
+        /** @var NickolasBurr_GoogleCloudStorage_Helper_Storage $storage */
+        $storage = Mage::helper(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_HELPER_STORAGE);
+
+        if ($storage->objectExists($filePath)) {
+            $storage->deleteObject($filePath);
+        }
 
         return $this;
     }
