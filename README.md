@@ -4,12 +4,12 @@ Use [Google Cloud Storage](https://cloud.google.com/storage/) as the backend for
 
 ## Installation
 
-Before installing this extension, please make sure you have installed [Google Cloud PHP Autoloader](https://github.com/nickolasburr/googlecloudphpautoloader).
+Before installing this extension, please make sure you have installed [Google Cloud PHP Autoloader](https://github.com/auroraextensions/googlecloudphpautoloader).
 This extension depends on the autoloader to load the necessary [Google Cloud PHP](https://github.com/googleapis/google-cloud-php) libraries.
 
 ## Documentation
 
-See [here](https://docs.nickolasburr.com/magento/extensions/1.x/magegcs/latest/) for documentation.
+See [here](https://docs.auroraextensions.com/magento/extensions/1.x/magegcs/latest/) for documentation.
 
 ## Credits
 
