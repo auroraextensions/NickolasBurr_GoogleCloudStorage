@@ -26,11 +26,11 @@ You need to create and install a service account key to authenticate with Google
 1. Generate a Google Cloud service account key with _Storage Admin_ privileges
 2. Install service account key to local or mounted filesystem with read-only permissions for Magento user
 3. Under `System > Configuration > Nickolas Burr Extensions > Google Cloud Storage`, make sure:
-  1. The extension is enabled
-  2. The Google Cloud project name where the bucket exists is set
-  3. The path to the service account key (e.g. `/etc/gcs.json`) is set
-  4. The Google Cloud Storage bucket name (e.g. `mybucket`) is set
-  5. [OPTIONAL] If you use the same bucket for multiple projects, you can specify a subdirectory to synchronize to inside the bucket. Otherwise, it will synchronize to `/`.
+    1. The extension is enabled
+    2. The Google Cloud project name where the bucket exists is set
+    3. The path to the service account key (e.g. `/etc/gcs.json`) is set
+    4. The Google Cloud Storage bucket name (e.g. `mybucket`) is set
+    5. [OPTIONAL] If you use the same bucket for multiple projects, you can specify a subdirectory to synchronize to inside the bucket. Otherwise, it will synchronize to `/`.
 
 For more information on Google Cloud service account keys, please see [Creating and Managing Service Account Keys](https://cloud.google.com/iam/docs/creating-managing-service-account-keys).
 
