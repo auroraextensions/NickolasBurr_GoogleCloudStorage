@@ -7,7 +7,7 @@ Use [Google Cloud Storage](https://cloud.google.com/storage/) as the backend for
 Before installing this extension, please make sure you've installed [Google Cloud PHP Autoloader](https://github.com/auroraextensions/googlecloudphpautoloader).
 This extension depends on the autoloader to load the necessary [Google Cloud PHP](https://github.com/googleapis/google-cloud-php) libraries.
 
-**IMPORTANT**: Please back up your media files prior to installation. We cannot help recover files in the event of an accidental deletion.
+**IMPORTANT**: Please back up your media files prior to installation. Files lost to accidental deletion cannot be recovered.
 
 ## Documentation
 
