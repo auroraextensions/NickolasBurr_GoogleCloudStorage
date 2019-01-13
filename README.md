@@ -17,7 +17,7 @@ See [here](https://docs.auroraextensions.com/magento/extensions/1.x/magegcs/late
 
 > Why am I getting "Fatal error: Uncaught Error: Class 'Google\Cloud\Storage\StorageClient'"
 
-You need to install [Google Cloud PHP Autoloader](https://github.com/auroraextensions/googlecloudphpautoloader).
+You need to install and configure [Google Cloud PHP Autoloader](https://github.com/auroraextensions/googlecloudphpautoloader).
 
 > Why am I getting "Given keyfile at path /path/to/magento was invalid"
 
