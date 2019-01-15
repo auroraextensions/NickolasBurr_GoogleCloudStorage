@@ -15,7 +15,7 @@ See [here](https://docs.auroraextensions.com/magento/extensions/1.x/magegcs/late
 
 ## FAQs
 
-> Why am I getting "Fatal error: Uncaught Error: Class 'Google\Cloud\Storage\StorageClient'"
+> Why am I getting "Fatal error: Uncaught Error: Class 'Google\Cloud\Storage\StorageClient' not found"
 
 You need to install and configure [Google Cloud PHP Autoloader](https://github.com/auroraextensions/googlecloudphpautoloader).
 
