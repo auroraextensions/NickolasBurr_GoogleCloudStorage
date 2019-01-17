@@ -2,6 +2,14 @@
 
 Use [Google Cloud Storage](https://cloud.google.com/storage/) as the backend for storing media assets in Magento 1.x.
 
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Documentation](#documentation)
+- [FAQs](#faqs)
+- [Troubleshooting](#troubleshooting)
+- [Credits](#credits)
+
 ## Prerequisites
 
 Before installing this extension, please make sure you've installed [Google Cloud PHP Autoloader](https://github.com/auroraextensions/googlecloudphpautoloader).
@@ -14,6 +22,24 @@ This extension depends on the autoloader to load the necessary [Google Cloud PHP
 See [here](https://docs.auroraextensions.com/magento/extensions/1.x/magegcs/latest/) for documentation.
 
 ## FAQs
+
+> Do I have to use a service account key for authentication? Or can I use a different method?
+
+Currently, only service account keys are supported for authentication.
+
+> Does the extension provide a CLI?
+
+No, it does not. However, you can perform bucket operations via `gsutil`.
+
+> Are log files synchronized to the bucket?
+
+No, only media files are synchronized.
+
+> Can I synchronize downloadable product files to the bucket?
+
+Yes, it can synchronize both sample and link files.
+
+## Troubleshooting
 
 > Why am I getting "Fatal error: Uncaught Error: Class 'Google\Cloud\Storage\StorageClient' not found"
 
