@@ -4,11 +4,12 @@ Use [Google Cloud Storage](https://cloud.google.com/storage/) as the backend for
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Documentation](#documentation)
-- [FAQs](#faqs)
-- [Troubleshooting](#troubleshooting)
-- [Credits](#credits)
+1. [Prerequisites](#prerequisites)
+2. [Documentation](#documentation)
+3. [Features](#features)
+4. [FAQs](#faqs)
+5. [Troubleshooting](#troubleshooting)
+6. [Credits](#credits)
 
 ## Prerequisites
 
@@ -20,6 +21,14 @@ This extension depends on the autoloader to load the necessary [Google Cloud PHP
 ## Documentation
 
 See [here](https://docs.auroraextensions.com/magento/extensions/1.x/magegcs/latest/) for documentation.
+
+## Features
+
+There are several advantages to cloud-based storage solutions like Google Cloud Storage, including:
+
++ Integration with CDN
++ External backups
++ Reduced storage costs
 
 ## FAQs
 
