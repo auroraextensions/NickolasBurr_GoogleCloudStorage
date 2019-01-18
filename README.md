@@ -41,11 +41,11 @@ Yes, it can synchronize both sample and link files.
 
 ## Troubleshooting
 
-> Why am I getting "Fatal error: Uncaught Error: Class 'Google\Cloud\Storage\StorageClient' not found"
+> Fatal error: Uncaught Error: Class 'Google\Cloud\Storage\StorageClient' not found
 
 You need to install and configure [Google Cloud PHP Autoloader](https://github.com/auroraextensions/googlecloudphpautoloader).
 
-> Why am I getting "Given keyfile at path /path/to/magento was invalid"
+> Given keyfile at path /path/to/magento was invalid
 
 You need to create and install a service account key to authenticate with Google Cloud. Verify you've completed the following:
 
