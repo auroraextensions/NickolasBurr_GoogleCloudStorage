@@ -25,7 +25,7 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage extends Mage_Core_
      *
      * @param int|null $storageCode
      * @param array $params
-     * @return Mage_Core_Model_File_Storage
+     * @return Mage_Core_Model_File_Storage|bool
      * @see Mage_Core_Model_File_Storage::getStorageModel
      */
     public function getStorageModel($storageCode = null, $params = array())
@@ -40,6 +40,7 @@ class NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage extends Mage_Core_
                 case NickolasBurr_GoogleCloudStorage_Helper_Dict::STORAGE_MEDIA_GCS:
                     /** @var NickolasBurr_GoogleCloudStorage_Model_Core_File_Storage_Bucket $storageModel */
                     $storageModel = Mage::getModel(NickolasBurr_GoogleCloudStorage_Helper_Dict::XML_PATH_MODEL_CORE_FILE_STORAGE_BUCKET);
+
                     break;
                 default:
                     return false;
