@@ -26,7 +26,7 @@ See [here](https://docs.auroraextensions.com/magento/extensions/1.x/magegcs/late
 
 There are several advantages to cloud-based storage solutions like Google Cloud Storage, including:
 
-+ Integration with CDN
++ Integration with [Google Cloud CDN](https://cloud.google.com/cdn/)
 + External backups
 + Reduced storage costs
 
